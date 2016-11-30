@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="codebase/webix.css" type="text/css" media="screen" charset="utf-8">
+		<script src="codebase/webix.js" type="text/javascript" charset="utf-8"></script>
+		<script src="plotly-latest.min.js"></script>
+		<title>Default Template</title>
+		
+		<style>
+		
+		.makeCenter {
+		    
+			padding-left: 35px;
+		}
+		
+		</style>
+		
+	</head>
+	<body>
+		<div id="plotlyDiv" style="width:1080px;height:1080px;"></div>
+		<script type="text/javascript" charset="utf-8">
+
+		webix.ui({
+			type:"line",
+			rows: [
+			{ view:"toolbar", id:"mybar", elements:[{},
+					{ view:"button", value:"Jun", width: 70},
+					{ view:"button", value:"July", width: 70},
+					
+					{ view:"button", value:"Aug", width: 70},
+					{ view:"button", value:"All", width: 70}]
+			},
+			{ 
+			
+			cols:[
+					{rows:[
+					
+					{view:"toolbar", id:"mybar2", width: 500, elements:[{ view:"button", css:"makeCenter", value:"Jobs", width: 400}]},
+					{view:"toolbar", id:"mybar3", width: 500, elements:[{ view:"button", css:"makeCenter", value:"Hours", align:"center", width: 400, }]},
+					{view:"toolbar", id:"mybar4", width: 500, elements:[{ view:"button", css:"makeCenter", value:"Avg Runtime", align:"center", width: 400}]}, 
+					
+					], width: 500			
+					},
+									 
+				{ view: "template", content: "plotlyDiv", height: 1000} ]
+			}
+			]
+		});
+
+		</script>
+		
+		<script>
+				
+		var trace1 = {
+		  x: ['HPG6-01', 'HPG6-02', 'HPG6-03'],
+		  y: [20, 14, 23],
+		  name: 'MATLAB',
+		  type: 'bar'
+		};
+
+		var trace2 = {
+		  x: ['HPG6-01', 'HPG6-02', 'HPG6-03'],
+		  y: [12, 18, 29],
+		  name: 'Seg',
+		  type: 'bar'
+		};
+
+		var data = [trace1, trace2];
+
+				
+		var layout = {
+		  title:'Line and Scatter Plot',
+		  titlefont: {size: 22},
+		  barmode: 'group',
+		  yaxis: {
+			title: 'Number of Jobs',
+			titlefont: {
+				family: 'Arial, sans-serif',
+				size: 18,
+				color: 'black'
+			}
+		  },
+		  height: 1000,
+		  width: 1000
+		};
+
+			
+		webix.ready(function () {
+		  	Plotly.newPlot('plotlyDiv', data, layout);
+			make_ui();
+
+			});
+				
+		
+		</script>
+	
+    </body>
+</html>
