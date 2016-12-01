@@ -5,48 +5,192 @@
 		<link rel="stylesheet" href="codebase/webix.css" type="text/css" media="screen" charset="utf-8">
 		<script src="codebase/webix.js" type="text/javascript" charset="utf-8"></script>
 		<script src="plotly-latest.min.js"></script>
-		<title>Default Template</title>
-		
-		<style>
-		
-		.makeCenter {
-		    
+		<title>Default Template</title>		
+		<style>		
+		.makeCenter { 
 			padding-left: 35px;
 		}
-		
 		</style>
-		
 	</head>
 	<body>
 		<div id="plotlyDiv" style="width:1080px;height:1080px;"></div>
 		<script type="text/javascript" charset="utf-8">
+		
+		
 
 		webix.ui({
 			type:"line",
 			rows: [
-			{ view:"toolbar", id:"mybar", elements:[{},
-					{ view:"button", value:"Jun", width: 70},
-					{ view:"button", value:"July", width: 70},
-					
-					{ view:"button", value:"Aug", width: 70},
-					{ view:"button", value:"All", width: 70}]
+			{view:"toolbar", id:"mybar", elements:[{},
+					{ id:"jun", view:"button", value:"Jun", width: 70},
+					{ id:"jul", view:"button", value:"July", width: 70},
+					{ id:"aug", view:"button", value:"Aug", width: 70},
+					{ id:"all", view:"button", value:"All", width: 70}]
 			},
 			{ 
 			
 			cols:[
 					{rows:[
-					
-					{view:"toolbar", id:"mybar2", width: 500, elements:[{ view:"button", css:"makeCenter", value:"Jobs", width: 400}]},
-					{view:"toolbar", id:"mybar3", width: 500, elements:[{ view:"button", css:"makeCenter", value:"Hours", align:"center", width: 400, }]},
-					{view:"toolbar", id:"mybar4", width: 500, elements:[{ view:"button", css:"makeCenter", value:"Avg Runtime", align:"center", width: 400}]}, 
-					
+					{view:"toolbar", id:"mybar2", width: 500, elements:[{ id:"jobs", view:"button", css:"makeCenter", value:"Jobs", width: 400}]},
+					{view:"toolbar", id:"mybar3", width: 500, elements:[{ id:"hours", view:"button", css:"makeCenter", value:"Hours", align:"center", width: 400, }]},
+					{view:"toolbar", id:"mybar4", width: 500, elements:[{ id:"runtime", view:"button", css:"makeCenter", value:"Avg Runtime", align:"center", width: 400}]},
 					], width: 500			
 					},
-									 
 				{ view: "template", content: "plotlyDiv", height: 1000} ]
 			}
 			]
+			
 		});
+		
+
+
+		$$('jobs').attachEvent("onItemClick", function(id){
+			// webix.message("June");
+			//document.getElementById("plotlyDiv").innerHTML = "Hello World!";
+			
+			var trace1 = {
+			  x: ['HPG6-01', 'HPG6-02', 'HPG6-03'],
+			  y: [0, 6, 9],
+			  name: 'MATLAB',
+			  marker: {color: 'rgb(55, 83, 109)'},
+			  type: 'bar'
+			 		  
+			};
+
+			var trace2 = {
+			  x: ['HPG6-01', 'HPG6-02', 'HPG6-03'],
+			  y: [10, 3, 34],
+			  name: 'Seg',
+			  marker: {color: 'rgb(26, 118, 255)'},
+			  type: 'bar'
+			  
+			};
+
+			var data = [trace1, trace2];
+
+			var layout = {
+			  title:'Computer Workload',
+			  titlefont: {size: 22},
+			  barmode: 'group',
+			  yaxis: {
+				title: 'Number of Jobs',
+				titlefont: {
+					family: 'Arial, sans-serif',
+					size: 18,
+					color: 'black'
+				}
+			  },
+			  height: 750,
+			  width: 1000
+			};
+
+			
+			webix.ready(function () {
+				Plotly.newPlot('plotlyDiv', data, layout);
+				make_ui();
+
+			});			
+			
+	});
+
+	$$('hours').attachEvent("onItemClick", function(id){
+		
+		var trace1 = {
+		  x: [1, 2, 3, 4],
+		  y: [10, 15, 13, 17],
+		  name: 'HPG6-01',
+		  mode: 'lines+markers'
+		  
+		};
+
+		var trace2 = {
+		  x: [2, 3, 4, 5],
+		  y: [16, 5, 11, 9],
+		  name: 'HPG6-02',
+		  mode: 'lines+markers'
+		};
+
+		var trace3 = {
+		  x: [1, 2, 3, 4],
+		  y: [12, 9, 15, 12],
+		  name: 'HPG6-03',
+		  mode: 'lines+markers'
+		};
+
+		var data = [ trace1, trace2, trace3 ];
+
+		var layout = {
+		  title:'Hours',
+		  titlefont: {size: 22},
+		  yaxis: {
+				title: 'Hours',
+				titlefont: {
+					family: 'Arial, sans-serif',
+					size: 18,
+					color: 'black'
+				}
+			  },
+			height: 750,
+			width: 1000
+		};
+
+		Plotly.newPlot('plotlyDiv', data, layout);
+	
+	});
+	
+	$$('runtime').attachEvent("onItemClick", function(id){
+	
+		var trace1 = {
+		  x: ['HPG6-01', 'HPG6-02', 'HPG6-03', 'HPG6-04', 'HPG6-05', 'HPG6-06', 'HPG6-07', 'HPG6-08', 'HPG6-09', 'HPG6-10', 'HPG6-11', 'HPG6-12', 'HPG6-13', 'HPG6-14', 'HPG6-15', 'HPG6-16', 'HPG6-17', 'HPG6-18', 'HPG6-19'],
+		  y: [20, 14, 23, 1, 2, 4, 4, 5, 5, 5, 5, 5, 18, 12, 12, 11, 7, 8, 9],
+		  name: 'MATLAB',
+		  marker: {color: 'rgb(255, 102, 255)'},
+		  type: 'bar'
+		};
+
+		var trace2 = {
+		  x: ['HPG6-01', 'HPG6-02', 'HPG6-03', 'HPG6-04', 'HPG6-05', 'HPG6-06', 'HPG6-07', 'HPG6-08', 'HPG6-09', 'HPG6-10', 'HPG6-11', 'HPG6-12', 'HPG6-13', 'HPG6-14', 'HPG6-15', 'HPG6-16', 'HPG6-17', 'HPG6-18', 'HPG6-19'],
+		  y: [24, 14, 23, 1, 2, 38, 43, 36, 5, 5, 22, 11, 18, 12, 12, 11, 18, 22, 29],	  
+		  name: 'Nuclei Detection',
+		  marker: {color: 'rgb(0, 153, 204)'},
+		  type: 'bar'
+		};
+
+		var data = [trace1, trace2];
+
+		var layout = {
+			  title:'Average Runtime',
+			  titlefont: {size: 22},
+			  barmode: 'group',
+			  yaxis: {
+				title: 'Runtime (Hours)',
+				titlefont: {
+					family: 'Arial, sans-serif',
+					size: 18,
+					color: 'black'
+				}
+			  },
+			  height: 750,
+			  width: 1000
+			};
+
+		Plotly.newPlot('plotlyDiv', data, layout);
+
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 		</script>
 		
@@ -70,19 +214,19 @@
 
 				
 		var layout = {
-		  title:'Line and Scatter Plot',
-		  titlefont: {size: 22},
-		  barmode: 'group',
-		  yaxis: {
-			title: 'Number of Jobs',
-			titlefont: {
-				family: 'Arial, sans-serif',
-				size: 18,
-				color: 'black'
-			}
-		  },
-		  height: 1000,
-		  width: 1000
+			title:'Computer Workload',
+			titlefont: {size: 22},
+			barmode: 'group',
+			yaxis: {
+				title: 'Number of Jobs',
+				titlefont: {
+					family: 'Arial, sans-serif',
+					size: 18,
+					color: 'black'
+				}
+			},
+			height: 750,
+			width: 1000
 		};
 
 			
